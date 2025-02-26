@@ -16,6 +16,8 @@
     "@ant-design/x": "^1.0.5",
     "antd": "^5.24.2",
     "antd-style": "^3.7.1",
+    "markdown-it": "^14.1.0",
+    "openai": "^4.85.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
