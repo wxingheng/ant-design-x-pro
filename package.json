@@ -1,10 +1,10 @@
 {
-  "name": "antdx-demo-react",
-  "description": "antdx-demo-react",
+  "name": "ant-design-x-pro",
+  "description": "Ant Design X Pro",
   "author": "wxingheng",
-  "homepage": "https://github.com/wxingheng/antdx-demo-react",
+  "homepage": "https://github.com/wxingheng/ant-design-x-pro",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
