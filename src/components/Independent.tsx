@@ -4,9 +4,7 @@ import {
   Conversations,
   Prompts,
   Sender,
-  ThoughtChainItem,
   Welcome,
-  XRequest,
   useXAgent,
   useXChat,
 } from "@ant-design/x";
@@ -29,9 +27,8 @@ import {
   OpenAIOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Badge, Button, type GetProp, message, Space } from "antd";
+import { Badge, Button, type GetProp, Space } from "antd";
 import OpenAI from "openai";
-
 import markdownit from "markdown-it";
 
 
@@ -51,7 +48,7 @@ const renderTitle = (icon: React.ReactElement, title: string) => (
 const defaultConversationsItems = [
   {
     key: "0",
-    label: "What is Ant Design X?",
+    label: "What is Ant Design X Pro?",
   },
 ];
 
@@ -257,6 +254,8 @@ const Independent: React.FC = () => {
             model: "qwen-long",
             messages: [{ role: "user", content: message }],
             stream: true,
+            max_completion_tokens: 100,
+            max_tokens: 100
           });
           for await (const chunk of chatResponse) {
             content += chunk.choices[0]?.delta?.content || "";
@@ -320,7 +319,7 @@ const Independent: React.FC = () => {
       <Welcome
         variant="borderless"
         icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-        title="Hello, I'm Ant Design X"
+        title="Hello, I'm Ant Design X Pro"
         description="Base on Ant Design, AGI product interface solution, create a better intelligent vision~"
         extra={
           <Space>
@@ -413,7 +412,7 @@ const Independent: React.FC = () => {
         draggable={false}
         alt="logo"
       />
-      <span>Ant Design X</span>
+      <span>Ant Design X Pro</span>
     </div>
   );
 
