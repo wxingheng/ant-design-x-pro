@@ -10,7 +10,8 @@ import {
 } from "@ant-design/x";
 import { createStyles } from "antd-style";
 import React, { useEffect } from "react";
-
+import hljs from "highlight.js";
+import 'highlight.js/styles/atom-one-dark.css'
 
 
 import {
@@ -31,8 +32,22 @@ import { Badge, Button, type GetProp, Space } from "antd";
 import OpenAI from "openai";
 import markdownit from "markdown-it";
 
+const md = markdownit({
+  html: true,
+  breaks: true,
+  linkify: true,
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return '<pre><code class="hljs">' +
+               hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+               '</code></pre>';
+      } catch (__) {}
+    }
 
-const md = markdownit({ html: true, breaks: true });
+    return '<pre><code class="hljs">' + md.utils.escapeHtml(str) + '</code></pre>';
+  }
+});
 
 const renderMarkdown = (content: string) => (
   <div dangerouslySetInnerHTML={{ __html: md.render(content) }} />
@@ -210,7 +225,7 @@ const roles: GetProp<typeof Bubble.List, "roles"> = {
 };
 
 const client = new OpenAI({
-  baseURL: import.meta.env.VITE_BASE_URL ,
+  baseURL: import.meta.env.VITE_BASE_URL,
   apiKey: import.meta.env.VITE_API_KEY,
   dangerouslyAllowBrowser: true, // 注意：这会使您的 API 密钥暴露在客户端
 });
@@ -254,8 +269,8 @@ const Independent: React.FC = () => {
             model: "qwen-long",
             messages: [{ role: "user", content: message }],
             stream: true,
-            max_completion_tokens: 100,
-            max_tokens: 100
+            max_completion_tokens: Number(import.meta.env.VITE_MAX_COMPLETION_TOKENS),
+            max_tokens: Number(import.meta.env.VITE_MAX_TOKENS),
           });
           for await (const chunk of chatResponse) {
             content += chunk.choices[0]?.delta?.content || "";
@@ -347,24 +362,24 @@ const Independent: React.FC = () => {
   const items = messages.map((e) => {
     const { message, id, status } = e;
     const role = status === "local" ? "local" : "ai";
-    if (role === 'local') {
-      return ({
+    if (role === "local") {
+      return {
         key: id,
         //loading: status === 'loading',
         role: role,
         messageRender: renderMarkdown,
         content: message,
-        avatar: {icon: <UserOutlined/>}
-      })
+        avatar: { icon: <UserOutlined /> },
+      };
     } else {
-      return ({
+      return {
         key: id,
         //loading: status === 'loading',
         role: role,
         messageRender: renderMarkdown,
         content: message,
-        avatar: {icon: <OpenAIOutlined/>}
-      })
+        avatar: { icon: <OpenAIOutlined /> },
+      };
     }
   });
   const attachmentsNode = (

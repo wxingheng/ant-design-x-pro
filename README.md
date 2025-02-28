@@ -38,6 +38,33 @@ yarn create ant-design-x-pro my-project
 pnpm create ant-design-x-pro my-project
 ```
 
+## 🔧 环境配置
+
+1. 复制环境配置文件:
+```bash
+cp .env.shadow .env
+```
+
+2. 配置环境变量:
+
+在 `.env` 文件中设置以下配置项：
+
+```bash
+# AI 服务基础 URL
+VITE_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+
+# API 密钥
+VITE_API_KEY=your-api-key
+
+# AI 响应最大 token 数
+VITE_MAX_COMPLETION_TOKENS=100
+
+# 总 token 限制
+VITE_MAX_TOKENS=100
+```
+
+注意：请确保将 `your-api-key` 替换为您的实际 API 密钥。
+
 ## 🚀 快速开始
 
 ### 1. 创建项目
